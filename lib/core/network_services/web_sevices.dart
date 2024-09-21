@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
-import '../../model/weather_model.dart';
+import '../../features/model/weather_model.dart';
+
 
 class WebService {
   final Dio _dio = Dio();

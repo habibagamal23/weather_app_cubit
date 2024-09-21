@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app_test/logic/weather_cubit.dart';
-import 'package:weather_app_test/presention/search_screen.dart';
+import 'package:weather_app_test/features/presention/search_screen.dart';
 
+
+import '../logic/weather_cubit.dart';
 import '../model/weather_model.dart';
 
 class HomeScreen extends StatelessWidget {

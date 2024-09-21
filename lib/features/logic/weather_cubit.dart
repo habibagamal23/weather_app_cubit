@@ -1,9 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../core/network_services/web_sevices.dart';
+import '../../core/shared_prefrance/shared_prfrance_helper.dart';
 import '../model/weather_model.dart';
-import '../utils/services/web_sevices.dart';
-import '../utils/shared_prfrance_helper.dart';
+
 
 part 'weather_state.dart';
 

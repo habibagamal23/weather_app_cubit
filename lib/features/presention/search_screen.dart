@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app_test/logic/weather_cubit.dart';
+
+import '../logic/weather_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
