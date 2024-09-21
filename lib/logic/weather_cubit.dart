@@ -3,27 +3,32 @@ import 'package:meta/meta.dart';
 
 import '../model/weather_model.dart';
 import '../utils/services/web_sevices.dart';
+import '../utils/shared_prfrance_helper.dart';
 
 part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(WeatherInitial());
-  final WebService _weatherService =
-      WebService();
+  final WebService _weatherService = WebService();
+  final SearchHistoryService shared = SearchHistoryService();
 
-  Weather? weatherModel;
-  String cityName ='';
+  Weather? weather;
+  String cityName = '';
+  List<String> lastCities = [];
 
   Future<void> getWeather({required String cityName}) async {
-    emit(WeatherLoading()); // Emit loading state
-
+    emit(WeatherLoading());
     try {
-      // Fetch weather data using the instantiated WeatherService
-      weatherModel = await _weatherService.fetchWeather(cityName);
+      weather = await _weatherService.fetchWeather(cityName);
       this.cityName = cityName;
-      emit(WeatherSuccess()); // Emit success state with data
+      await shared.setCity(cityName);
+      emit(WeatherSuccess(weather!, cityName));
     } catch (e) {
-      emit(WeatherFailure()); // Emit failure state
+      emit(WeatherFailure("Failed to fetch weather data $e"));
     }
+  }
+
+  Future<List<String>> getSearchHistory() async {
+    return await shared.getSearchHistory();
   }
 }

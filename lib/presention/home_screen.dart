@@ -14,8 +14,9 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 100,
-            title:  Padding(
-              padding: const EdgeInsets.only(top: 20), // Add more space from top
+            title: Padding(
+              padding:
+                  const EdgeInsets.only(top: 20), // Add more space from top
               child: const Text("Weather App"),
             ),
             centerTitle: true,
@@ -30,55 +31,35 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          body:
-              BlocBuilder<WeatherCubit, WeatherState>(builder: (context, state) {
+          body: BlocBuilder<WeatherCubit, WeatherState>(
+              builder: (context, state) {
             if (state is WeatherLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is WeatherSuccess) {
-              Weather? weatherdata =
-                  BlocProvider.of<WeatherCubit>(context).weatherModel;
+              Weather? weatherData = state.weather;
               return WeatherDisplayWidget(
-                weatherData: weatherdata!,
+                weatherData: weatherData!,
+                cityName: state.cityname,
               );
             } else if (state is WeatherFailure) {
-              return Center(child: Text("Feliar "));
+              return Center(child: Text(state.errorMessage));
             } else {
-              return NoWeatherInputWidget();
+              return const Center(
+                  child: Text('Enter a city name to fetch weather.'));
             }
           })),
     );
   }
 }
 
-class NoWeatherInputWidget extends StatelessWidget {
-  const NoWeatherInputWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
-        children: const [
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              "Enter a city name to fetch weather.",
-              style: TextStyle(fontSize: 16), // Optional styling
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class WeatherDisplayWidget extends StatelessWidget {
-  final Weather weatherData; // Pass in the weather data
+  final Weather weatherData;
+  final String cityName;
+  // Pass in the weather data
 
-  const WeatherDisplayWidget({
-    Key? key,
-    required this.weatherData,
-  }) : super(key: key);
+  const WeatherDisplayWidget(
+      {Key? key, required this.weatherData, required this.cityName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +71,7 @@ class WeatherDisplayWidget extends StatelessWidget {
         ),
         // City name fetched from Provider
         Text(
-          '${BlocProvider.of<WeatherCubit>(context).cityName}',
+          '${cityName}',
           style: const TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
