@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app_test/features/logic/weather_cubit.dart';
 
 import 'features/presention/home_screen.dart';
 
-
 void main() {
-  runApp( MyApp());
+  runApp(BlocProvider(
+    create: (_) => WeatherCubit(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

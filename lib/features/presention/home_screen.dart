@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app_test/features/logic/weather_cubit.dart';
 import 'package:weather_app_test/features/presention/search_screen.dart';
-
-
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -14,9 +13,8 @@ class HomeScreen extends StatelessWidget {
           appBar: AppBar(
             toolbarHeight: 100,
             title: const Padding(
-              padding:
-                   EdgeInsets.only(top: 20),
-              child:  Text("Weather App"),
+              padding: EdgeInsets.only(top: 20),
+              child: Text("Weather App"),
             ),
             centerTitle: true,
             backgroundColor: Colors.blue,
@@ -30,8 +28,25 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: Center()),
+          body: BlocBuilder<WeatherCubit, WeatherState>(
+              builder: (context, state) {
+            if (state is WeatherLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is WeatherScuess) {
+              return Column(
+                children: [
+                  Text("${state.cityname}"),
+                  Text("Update time : ${state.model.date.hour.toString()}"),
+                  Text("temp is : ${state.model.temp}"),
+                ],
+              );
+            } else if (state is WeatherFaliuere) {
+              return Text("${state.errmsg}");
+            }
+            return Center(
+              child: Text("go to search weather"),
+            );
+          })),
     );
   }
 }
-

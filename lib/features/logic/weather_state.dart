@@ -4,3 +4,17 @@ part of 'weather_cubit.dart';
 sealed class WeatherState {}
 
 final class WeatherInitial extends WeatherState {}
+
+final class WeatherLoading extends WeatherState {}
+
+final class WeatherScuess extends WeatherState {
+  final WeatherModel model;
+  final String cityname;
+  WeatherScuess(this.model, this.cityname);
+}
+
+final class WeatherFaliuere extends WeatherState {
+  final String errmsg;
+
+  WeatherFaliuere(this.errmsg);
+}

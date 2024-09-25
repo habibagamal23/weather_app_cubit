@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app_test/features/logic/weather_cubit.dart';
+import 'package:weather_app_test/main.dart';
 
 class SearchScreen extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
@@ -23,7 +26,10 @@ class SearchScreen extends StatelessWidget {
   }
 
   void _submitSearch(BuildContext context, String cityName) {
-
+if(cityName.isNotEmpty){
+  context.read<WeatherCubit>().getWeather(cityName);
+  Navigator.pop(context);
+}
   }
 
   void _clearAndExit(BuildContext context) {
