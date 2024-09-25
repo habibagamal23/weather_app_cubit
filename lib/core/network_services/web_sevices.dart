@@ -16,9 +16,7 @@ class WebService {
         url,
       );
       if (response.statusCode == 200) {
-        // Decode the JSON data and create a WeatherModel instance
         Map<String, dynamic> data = response.data;
-
         Weather weather = Weather.fromJson(data);
         return weather;
       } else {
