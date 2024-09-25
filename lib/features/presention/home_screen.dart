@@ -10,43 +10,79 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 100,
-            title: const Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text("Weather App"),
-            ),
-            centerTitle: true,
-            backgroundColor: Colors.blue,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SearchScreen()));
-                },
-                icon: Icon(Icons.search),
-              ),
-            ],
+        appBar: AppBar(
+          toolbarHeight: 100,
+          title: const Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text("Weather App"),
           ),
-          body: BlocBuilder<WeatherCubit, WeatherState>(
-              builder: (context, state) {
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()),
+                );
+              },
+              icon: const Icon(Icons.search),
+            ),
+          ],
+        ),
+        body: BlocBuilder<WeatherCubit, WeatherState>(
+          builder: (context, state) {
             if (state is WeatherLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is WeatherScuess) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("${state.cityname}"),
-                  Text("Update time : ${state.model.date.hour.toString()}"),
-                  Text("temp is : ${state.model.temp}"),
+                  Text(
+                    state.cityname,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Update time: ${state.model.date.hour.toString()}:${state.model.date.minute.toString().padLeft(2, '0')}",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Temperature: ${state.model.temp}°C",
+                    style: const TextStyle(fontSize: 22),
+                  ),
                 ],
               );
             } else if (state is WeatherFaliuere) {
-              return Text("${state.errmsg}");
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Error: ${state.errmsg}",
+                      style: const TextStyle(fontSize: 18, color: Colors.red),
+                    ),
+                    const SizedBox(height: 10),
+
+
+
+                  ],
+                ),
+              );
             }
-            return Center(
-              child: Text("go to search weather"),
+            return const Center(
+              child: Text(
+                "Please search for weather data.",
+                style: TextStyle(fontSize: 18),
+              ),
             );
-          })),
+          },
+        ),
+      ),
     );
   }
 }

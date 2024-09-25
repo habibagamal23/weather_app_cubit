@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app_test/features/logic/weather_cubit.dart';
 
+import 'core/network_services/web_service.dart';
 import 'features/presention/home_screen.dart';
 
 void main() {
   runApp(BlocProvider(
-    create: (_) => WeatherCubit(),
+    create: (_) => WeatherCubit(WebService()),
     child: MyApp(),
   ));
 }
