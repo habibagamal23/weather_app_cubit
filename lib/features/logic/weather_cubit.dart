@@ -9,13 +9,10 @@ part 'weather_state.dart';
 class WeatherCubit extends Cubit<WeatherState> {
   final WebService weatherService;
 
-  // Constructor with Dependency Injection for WebService
   WeatherCubit(this.weatherService) : super(WeatherInitial());
 
-  // Holds the current weather model
   WeatherModel? weatherModel;
 
-  // Fetch weather data and manage states
   Future<void> getWeather(String cityName) async {
     emit(WeatherLoading());
     try {

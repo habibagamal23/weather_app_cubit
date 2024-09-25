@@ -59,18 +59,9 @@ class HomeScreen extends StatelessWidget {
               );
             } else if (state is WeatherFaliuere) {
               return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Error: ${state.errmsg}",
-                      style: const TextStyle(fontSize: 18, color: Colors.red),
-                    ),
-                    const SizedBox(height: 10),
-
-
-
-                  ],
+                child: Text(
+                  "Error: ${state.errmsg}",
+                  style: const TextStyle(fontSize: 18, color: Colors.red),
                 ),
               );
             }
