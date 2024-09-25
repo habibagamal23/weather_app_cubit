@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'features/logic/weather_cubit.dart';
 import 'features/presention/home_screen.dart';
 
 
 void main() {
-  runApp(BlocProvider<WeatherCubit>(
-      create: (context) => WeatherCubit(), child: MyApp()));
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
